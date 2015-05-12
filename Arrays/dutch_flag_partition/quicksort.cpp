@@ -42,7 +42,7 @@ void print_array(vector<T> & A) {
 
 int main() {
     vector<int> A;
-    const int N = 1024;
+    const int N = 4194304;
     for (int i = 1; i <= N; ++i)
         A.emplace_back(i);
 
@@ -50,10 +50,12 @@ int main() {
     for (int i = N-1; i >= 0; --i)
         swap(A[i], A[rand() % (i+1)]);
 
-    print_array(A);
     
+    clock_t t1 = clock(); 
     quicksort(A, 0, A.size()-1);
+    clock_t t2 = clock(); 
     print_array(A);
+    cout << "Running time: " << double(t2 - t1) / CLOCKS_PER_SEC << " secs." << endl;
     
     return 0;
 }
