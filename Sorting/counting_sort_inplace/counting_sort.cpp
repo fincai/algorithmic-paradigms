@@ -1,5 +1,5 @@
 /* The general inplace counting sort by swapping (not stable) */
-/* O(nlogk) time complexity with additional O(k) space */
+/* O(nlogk + klogk) time complexity with additional O(k) space */
 /* The stable counting sort requires addtional O(n) space */
 #include <iostream>
 #include <string>
@@ -43,16 +43,16 @@ void counting_sort(vector<Person<KeyType>> & people) {
 int main() {
     vector<Person<string>> people;
     people.emplace_back(1, "Upper");
-    for (int i = 2; i <= 5; ++i)
+    for (int i = 1; i <= 3; ++i)
         people.emplace_back(i, "Middle");
-    for (int j = 6; j <= 9; ++j)
+    for (int j = 1; j <= 4; ++j)
         people.emplace_back(j, "Lower");
-    people.emplace_back(10, "Upper");
+    people.emplace_back(2, "Upper");
 
     counting_sort(people);
 
     for (auto & p : people)
-        cout << p.key << "class person "
+        cout << p.key << " class person "
              << p.id << endl;
 
     return 0;
