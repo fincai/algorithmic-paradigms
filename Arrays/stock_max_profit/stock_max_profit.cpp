@@ -17,17 +17,17 @@ double max3(double p1, double p2, double p3) {
 }
 
 double maximum(vector<double> & A, int low, int high) {
-    double max_sofar = A[low];
+    double max_sf = A[low];
     for (int i = low+1; i <= high; ++i)
-        max_sofar = max(A[i], max_sofar);
-    return max_sofar;
+        max_sf = max(A[i], max_sf);
+    return max_sf;
 }
 
 double minimum(vector<double> & A, int low, int high) {
-    double min_sofar = A[low];
+    double min_sf = A[low];
     for (int i = low+1; i <= high; ++i)
-        min_sofar = min(A[i], min_sofar);
-    return min_sofar;
+        min_sf = min(A[i], min_sf);
+    return min_sf;
 }
 
 double max_profit2(vector<double> & A, int low, int high) {
@@ -42,12 +42,12 @@ double max_profit2(vector<double> & A, int low, int high) {
 }
 
 double max_profit3(vector<double> & A) {
-    double min_sofar = A[0], maxdiff_sofar = 0;
+    double min_sf = A[0], maxdiff = 0;
     for (int i = 1; i < A.size(); ++i) {
-        maxdiff_sofar = max(A[i] - min_sofar, maxdiff_sofar);
-        min_sofar = min(A[i], min_sofar);
+        maxdiff = max(A[i] - min_sf, maxdiff);
+        min_sf = min(A[i], min_sf);
     }
-    return maxdiff_sofar;
+    return maxdiff;
 }
 
 int main() {
