@@ -1,3 +1,4 @@
+// Assuming no duplicated elements
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -31,11 +32,35 @@ int kth_smallest2(vector<int> & A, vector<int> & B, int k) {
     return min(A[i], B[j]);
 }
 
+
+int kth_smallest(vector<int> & A, vector<int> & B, int k) {    
+    int m = A.size(), n = B.size();
+    int b = max(0, k - n);
+    int t = min(k, m);
+    while (b < t) {
+        int x = (b + t) / 2;
+        int A_x_1 =  x <= 0 ? numeric_limits<int>::min() : A[x-1];
+        int A_x =  x >= m ? numeric_limits<int>::max() : A[x];
+        int B_k_x_1 =  k - x - 1 < 0 ? numeric_limits<int>::min() : B[k-x-1];
+        int B_k_x =  k - x >= n ? numeric_limits<int>::max() : B[k-x];
+
+        if (A_x < B_k_x_1)
+            b = x + 1;
+        else if (A_x_1 > B_k_x)
+            t = x - 1;
+        else 
+            return max(A_x_1, B_k_x_1);
+    }
+    
+    int A_b_1 = b - 1 < 0 ? numeric_limits<int>::min() : A[b - 1];
+    int B_k_b_1 = k - b - 1 < 0 ? numeric_limits<int>::min() : B[k - b - 1];
+    return max(A_b_1, B_k_b_1);
+}
+    
 int main() {
-    vector<int> A = {1, 3, 5};
-    vector<int> B = {2, 4, 8, 10};
-    cout << kth_smallest1(A, B, 3) << endl;
-    cout << kth_smallest2(A, B, 3) << endl;
+    vector<int> A = {1};
+    vector<int> B = {2, 3, 4, 6, 8, 10, 11, 12};
+    for (int k = 1; k <= 9; ++k)
+        cout << kth_smallest(A, B, k) << endl;
     return 0;
 }
-
