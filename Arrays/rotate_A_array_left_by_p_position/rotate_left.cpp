@@ -1,12 +1,15 @@
 #include <iostream>
 using namespace std;
 
-void reverse(int A[ ], int p, int q) {
+void reverse(int A[ ], int lo, int hi) {
+    /*
     for (int i = p, j = q; i < j; ++i, --j) {
         int temp = A[i];
         A[i] = A[j];
         A[j] = temp;
     }
+    */
+    while (lo < hi) swap(A[lo++], A[hi--]);
 }
 
 void rotate_left(int A[ ], int n, int p) {
