@@ -2,15 +2,12 @@
 using namespace std;
 
 void bubbleSort(int A[ ], int n) {
-    for (int i = n-1; i >=1; --i) {
-        int flag = 0;
-        for (int j = 0; j < i; ++j)
-            if (A[j] > A[j+1]) {
-                swap(A[j], A[j+1]);
-                flag = 1;
+    for (int sorted = 0; (sorted = !sorted); n--)
+        for (int i = 1; i < n; i++)
+            if (A[i-1] > A[i]) {
+                swap(A[i-1], A[i]);
+                sorted = 0;
             }
-        if (flag == 0) return;
-    }
 }
 
 int main() {
