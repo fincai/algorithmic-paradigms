@@ -26,8 +26,8 @@ public:
     
     int disordered() const; // 统计逆序数
     
-    int uniquify(); //有序向量的唯一化
-    
+    int uniquify1(); //有序向量的唯一化 O(n^2)
+    int uniquify(); //有序向量的唯一化 O(n)!
 
 };
 
@@ -86,12 +86,12 @@ void Vector<T>::traverse(void (*visit)(T&)) {
     for (int i = 0; i < size; i++)  visit(elem[i]); 
 }
 */
-template<typename T> template <typename VST>
+template <typename T> template <typename VST>
 void Vector<T>::traverse(VST visit) {
     for (int i = 0; i < size; i++) visit(elem[i]);
 }
 
-template<typename T>
+template <typename T>
 int Vector<T>::disordered() const {
     int n = 0;
     for (int i = 1; i < size; i++)
@@ -100,10 +100,20 @@ int Vector<T>::disordered() const {
 }
 
 
-template<typename T>
-int Vector<T>::uniquify() {
+template <typename T>
+int Vector<T>::uniquify1() {
     int oldSize = size; int i = 1;
     while (i < size) 
         (elem[i-1] == elem[i]) ? remove(i) : i++;
     return oldSize - size;
+}
+
+
+template <typename T>
+int Vector<T>::uniquify() {
+    int i = 0, j;
+    for (j = 1; j < size; j++)
+        if (elem[i] != elem[j]) elem[++i] = elem[j];
+    size = ++i;
+    return j - i;
 }
