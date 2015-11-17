@@ -2,8 +2,18 @@
 using namespace std;
 #include "Vector.h"
 
-void print(int & e) { 
-    cout << e << " ";
+
+//函数对象
+template <typename T>
+struct Print {
+    virtual void operator()(T & e) { cout << e << " "; }
+};
+
+
+template <typename T>
+void print(Vector<T> & V) {
+    V.traverse(Print<T>());
+    cout << endl;
 }
 
 int main() {
@@ -15,9 +25,9 @@ int main() {
     A.insert(4, 7);
     A.insert(5, 7);
     A.insert(6, 9);
-    A.traverse(print); cout << endl;
+    print(A);
     A.deduplicate();
-    A.traverse(print); cout << endl;
+    print(A);
     
     
     return 0;

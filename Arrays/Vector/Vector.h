@@ -21,7 +21,10 @@ public:
     T remove(Rank r); //利用区间删除算法删除单个元素
     Rank find(const T & e, Rank lo, Rank hi); // 查找, 命中多个时返回秩最大者
     int deduplicate(); //唯一化
-    void traverse(void (*visit)(T&)); //遍历的接口
+    //void traverse(void (*visit)(T&)); //遍历的接口
+    template<typename VST> void traverse(VST visit) {
+        for (int i = 0; i < size; i++) visit(elem[i]);
+    }
 
 };
 
@@ -74,8 +77,10 @@ int Vector<T>::deduplicate() {   // O(n^2)
         (find(elem[i], 0, i) < 0) ? i++ : remove(i);
     return oldSize - size;
 }
-
+/*
 template <typename T>
 void Vector<T>::traverse(void (*visit)(T&)) { 
     for (int i = 0; i < size; i++)  visit(elem[i]); 
 }
+*/
+
