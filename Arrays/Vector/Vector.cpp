@@ -26,7 +26,7 @@ int main() {
     A.insert(5, 7);
     A.insert(6, 9);
     print(A);
-    A.deduplicate();
+    A.uniquify();
     print(A);
     
     

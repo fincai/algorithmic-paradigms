@@ -22,9 +22,12 @@ public:
     Rank find(const T & e, Rank lo, Rank hi); // 查找, 命中多个时返回秩最大者
     int deduplicate(); //唯一化
     //void traverse(void (*visit)(T&)); //遍历的接口
-    template<typename VST> void traverse(VST visit) {
-        for (int i = 0; i < size; i++) visit(elem[i]);
-    }
+    template<typename VST> void traverse(VST visit); 
+    
+    int disordered() const; // 统计逆序数
+    
+    int uniquify(); //有序向量的唯一化
+    
 
 };
 
@@ -83,4 +86,24 @@ void Vector<T>::traverse(void (*visit)(T&)) {
     for (int i = 0; i < size; i++)  visit(elem[i]); 
 }
 */
+template<typename T> template <typename VST>
+void Vector<T>::traverse(VST visit) {
+    for (int i = 0; i < size; i++) visit(elem[i]);
+}
 
+template<typename T>
+int Vector<T>::disordered() const {
+    int n = 0;
+    for (int i = 1; i < size; i++)
+        n +=  (elem[i-1] > elem[i]);
+    return n;
+}
+
+
+template<typename T>
+int Vector<T>::uniquify() {
+    int oldSize = size; int i = 1;
+    while (i < size) 
+        (elem[i-1] == elem[i]) ? remove(i) : i++;
+    return oldSize - size;
+}
