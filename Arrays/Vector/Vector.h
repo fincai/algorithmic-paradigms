@@ -8,6 +8,8 @@ private:
     Rank size; int capacity; T *elem;
     void expand();  //倍增扩容算法，均摊复制开销为O(1)
     
+    Rank bubble(Rank lo, Rank hi);
+    
 public:
     Vector(int c = DEFAULT_CAPACITY) 
     { elem = new T[capacity = c]; size = 0; }
@@ -28,6 +30,10 @@ public:
     
     int uniquify1(); //有序向量的唯一化 O(n^2)
     int uniquify(); //有序向量的唯一化 O(n)!
+
+    void bubbleSort(Rank lo, Rank hi) {    // 改进的起泡排序(稳定), 右侧大量就位元素情况下改进为O(n)
+        while (lo < (hi = bubble(lo, hi))) ;
+    }
 
 };
 
@@ -116,4 +122,17 @@ int Vector<T>::uniquify() {
         if (elem[i] != elem[j]) elem[++i] = elem[j];
     size = ++i;
     return j - i;
+}
+
+
+template <typename T>
+Rank Vector<T>::bubble(Rank lo, Rank hi) {
+    Rank last = lo;
+    while (++lo < hi) {
+        if (elem[lo-1] > elem[lo]) {
+            last = lo;                   //记录最右侧逆序对的位置
+            swap(elem[lo-1], elem[lo]);
+        }
+    }
+    return last;
 }

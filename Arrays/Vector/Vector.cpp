@@ -18,6 +18,7 @@ void print(Vector<T> & V) {
 
 int main() {
     Vector<int> A;
+    /*
     A.insert(0, 3);
     A.insert(1, 4);
     A.insert(2, 4);
@@ -28,7 +29,13 @@ int main() {
     print(A);
     A.uniquify();
     print(A);
-    
+    */
+    srand(time(0));
+    for (int i = 0; i < 100; i++)
+        A.insert(i, rand() % 100);
+    print(A);
+    A.bubbleSort(0, 100);
+    print(A);
     
     return 0;
 }
