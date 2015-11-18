@@ -9,6 +9,7 @@ private:
     void expand();  //倍增扩容算法，均摊复制开销为O(1)
     
     Rank bubble(Rank lo, Rank hi);
+    void merge(Rank lo, Rank mi, Rank hi);
     
 public:
     Vector(int c = DEFAULT_CAPACITY) 
@@ -34,6 +35,15 @@ public:
     void bubbleSort(Rank lo, Rank hi) {    // 改进的起泡排序(稳定), 右侧大量就位元素情况下改进为O(n)
         while (lo < (hi = bubble(lo, hi))) ;
     }
+
+    void mergeSort(Rank lo, Rank hi) {  // 二路归并排序
+        if (hi - lo < 2) return;
+        Rank mi = (lo + hi) >> 1;
+        mergeSort(lo, mi);
+        mergeSort(mi, hi);
+        merge(lo, mi, hi);
+    }
+    
 
 };
 
@@ -115,8 +125,7 @@ int Vector<T>::uniquify1() {
 }
 
 
-template <typename T>
-int Vector<T>::uniquify() {
+template <typename T> int Vector<T>::uniquify() {
     int i = 0, j;
     for (j = 1; j < size; j++)
         if (elem[i] != elem[j]) elem[++i] = elem[j];
@@ -135,4 +144,23 @@ Rank Vector<T>::bubble(Rank lo, Rank hi) {
         }
     }
     return last;
+}
+
+
+template <typename T>
+void Vector<T>::merge(Rank lo, Rank mi, Rank hi) {
+    T* A = elem + lo;
+    int lb = mi - lo;
+    T* B = new T[lb];
+    for (Rank i = 0; i < lb; i++) B[i] = A[i];
+    int lc = hi - mi;
+    T* C = elem + mi;
+    for (Rank i = 0, j = 0, k = 0; (j < lb) || (k < lc) ;) {
+        if (j < lb && (lc <= k || B[j] <= C[k])) A[i++] = B[j++];
+        if (k < lc && (lb <= j || C[k] < B[j])) {
+            if (lb <= j) break;  
+            A[i++] = C[k++];
+        }
+    }
+    delete [ ] B;
 }

@@ -34,7 +34,7 @@ int main() {
     for (int i = 0; i < 100; i++)
         A.insert(i, rand() % 100);
     print(A);
-    A.bubbleSort(0, 100);
+    A.mergeSort(0, 100);
     print(A);
     
     return 0;
