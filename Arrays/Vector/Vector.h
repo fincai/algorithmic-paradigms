@@ -17,6 +17,9 @@ public:
     
     ~Vector() { delete [ ] elem; }
     
+    int length() const { return size; }
+    bool empty() const { return size == 0; }
+    
     T & operator[ ](Rank r) const { return elem[r]; }  //重载实现下标访问
 
     Rank insert(Rank r, const T & e);
