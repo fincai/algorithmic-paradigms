@@ -1,25 +1,25 @@
 #include <iostream>
-#include <string>
 using namespace std;
 #include "Stack.h"
 
-
-bool bracketMatch(const char exp[ ], int lo, int hi) {
+bool BracketsMatch(const char exp[ ], int lo, int hi) {
     Stack<char> S;
     for (int i = lo; i < hi; i++) {
-        if ('(' == exp[i]) S.push('(');
-        else if (!S.empty()) S.pop();
-        else return false;
+        switch (exp[i]) {
+            case '(': case '[': case '{': S.push(exp[i]); break;
+            case ')': if (S.empty() || S.pop() != '(') return false; break;
+            case ']': if (S.empty() || S.pop() != '[') return false; break;
+            case '}': if (S.empty() || S.pop() != '{') return false; break;
+        }
     }
     return S.empty();
 }
 
 int main() {
-    char exp[ ] = "(()())())";
-    if (bracketMatch(exp, 0, 8))
-        cout << "brackets match!" << endl;
+    char exp[ ] = "{()[()][]}";
+    if (BracketsMatch(exp, 0, 10))
+        cout << "Brackets match!" << endl;
     else
-        cout << "brackets doesn't match!" << endl;
-
+        cout << "Brackets don't match!" << endl;
     return 0;
 }
