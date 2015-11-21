@@ -17,6 +17,15 @@ class BinTree {
         }
     }
 
+    template <typename Func>
+    void visitAlongLeftChain(BinNode* x, Func visit, Stack<BinNode*> & S) {
+        while (x) {
+            visit(x->data);
+            if (x->rchild) S.push(x->rchild);
+            x = x->lchild;
+        }
+    }
+
 public:
     int size() const { return _size; }
     bool empty() const { return !_root; }
@@ -27,5 +36,36 @@ public:
         updateHeightAbove(x);  // x祖先高度可能增加, 其余结点高度必然不变
         return x->rchild;
     }
+
+    template <typename Func>
+    void travPre(BinNode* x, Func visit) {  //前序遍历(根左右) 的递归实现 
+        if (!x) return;
+        visit(x->data);
+        travPre(x->lchild, visit);
+        travPre(x->rchild, visit);
+    }
+
+    template <typename Func>
+    void travPre_I1(BinNode* x, Func visit) {  //前序遍历的迭代实现
+        Stack<BinNode*> S; // 辅助栈 
+        if (x) S.push(x);  // 根结点入栈
+        while (!S.empty()) {
+            x = S.pop(); visit(x->data);
+            if (x->rchild) S.push(x->rchild);
+            if (x->lchild) S.push(x->lchild); //左结点要先访问，所以后进(先出)
+        }
+    }
+
+    template <typename Func>
+    void travPre_I2(BinNode* x, Func visit) {  //前序遍历迭代版2: 先自顶向下访问左侧链, 再自底向上访问用栈保存的右结点
+        Stack<BinNode*> S;
+        while (1) {
+            visitAlongLeftChain(x, visit, S);
+            if (S.empty()) break;
+            x = S.pop();
+        }
+    }
+
+    
 
 };

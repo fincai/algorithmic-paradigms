@@ -18,9 +18,5 @@ struct BinNode {
     { return rchild = new BinNode(e, this); }
 
     BinNode* succ(); //当前节点的直接后继(中序遍历意义下)
-    void travLevel(BinNode* t);
-    void travPre(BinNode* t);
-    void travIn(BinNode* t);
-    void travPost(BinNode* t);
     
 };

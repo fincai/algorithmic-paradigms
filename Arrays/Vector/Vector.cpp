@@ -6,7 +6,7 @@ using namespace std;
 //函数对象
 template <typename T>
 struct Print {
-    virtual void operator()(T & e) { cout << e << " "; }
+    void operator()(T & e) { cout << e << " "; }
 };
 
 
