@@ -1,7 +1,9 @@
+#pragma once
+template <typename T>
 struct BinNode {
-    BinNode(int & e, BinNode* p=NULL): data(e), parent(p) { }
-    BinNode* parent, lchild, rchild;
-    int data; 
+    BinNode(const T & e, BinNode<T>* p=0): data(e), parent(p) { }
+    BinNode<T>* parent, lchild, rchild;
+    T data; 
     int height;
     
     int size() {
@@ -11,12 +13,11 @@ struct BinNode {
         return cnt;
     }
 
-    BinNode* insertL(int & e) 
+    BinNode<T>* insertL(const T & e) 
     { return lchild = new BinNode(e, this); }
 
-    BinNode* insertR(int & r)
+    BinNode<T>* insertR(const T & e)
     { return rchild = new BinNode(e, this); }
 
-    BinNode* succ(); //当前节点的直接后继(中序遍历意义下)
     
 };

@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Queue.h"
+#include "BinTree.h" 
 
 int main() {
-    Queue<int> Q;
+    BinTree<int> t;
     return 0;
 }
