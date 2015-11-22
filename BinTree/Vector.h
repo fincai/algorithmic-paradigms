@@ -6,7 +6,7 @@ typedef int Rank;
 
 
 template <typename T> class Vector {
-private:
+protected:
     Rank size; int capacity; T *elem;
     void expand();  //倍增扩容算法，均摊复制开销为O(1)
     
