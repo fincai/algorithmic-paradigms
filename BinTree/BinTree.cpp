@@ -1,4 +1,5 @@
 #include "BinNode.h"
+#include "Stack.h"
 
 #define height(node) (node ? node->height : -1)
 
@@ -24,6 +25,12 @@ class BinTree {
             if (x->rchild) S.push(x->rchild);
             x = x->lchild;
         }
+    }
+
+    
+    template <typename Func>
+    void goAlongLeftChain(BinNode* x, Stack<BinNode*> & S) {
+        while (x) { S.push(x); x = x->lchild; }
     }
 
 public:
@@ -65,6 +72,30 @@ public:
             x = S.pop();
         }
     }
+
+    template <typename Func>
+    void travIn(BinNode* x, Func visit) {  //中序遍历的递归实现
+        if (!x) return;
+        if (x->lchild) travIn(l->lchild, visit);
+        visit(x->data);
+        if (x->rchild) travIn(r->rchild, visit);
+    }
+
+    
+    template <typename Func>
+    void travIn_I1(BinNode* x, Func visit) {
+        Stack<BinNode*> S;
+        while (1) {
+            goAlongLeftChain(x, S);
+            if (S.empty()) break;
+            x = S.pop();
+            visit(x->data);
+            x = x->rchild;
+        }
+    }
+
+
+    
 
     
 
