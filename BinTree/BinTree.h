@@ -37,6 +37,17 @@ class BinTree {
         while (x) { S.push(x); x = x->lchild; }
     }
 
+    
+    template <typename Func>
+    void goToLeftMostLeaf(Stack<BinNode<T>*> & S) {
+        while (BinNode<T>* x = S.top()) 
+            if (x->lchild) {
+                if (x->rchild) S.push(x->rchild); //右结点先进栈
+                else S.push(x->lchild);
+            } else  S.push(x->rchild); //叶子结点则空结点入栈, 循环结束
+        S.pop(); //弹出栈顶的空结点
+    }
+
 public:
     int size() const { return _size; }
     bool empty() const { return !_root; }
@@ -87,7 +98,7 @@ public:
 
     
     template <typename Func>
-    void travIn_I1(BinNode<T>* x, Func visit) {
+    void travIn_I1(BinNode<T>* x, Func visit) {  //中序遍历的迭代实现
         Stack<BinNode<T>*> S;
         while (1) {
             goAlongLeftChain(x, S);
@@ -97,6 +108,29 @@ public:
             x = x->rchild;
         }
     }
+
+    
+    template <typename Func>
+    void travPost(BinNode<T>* x, Func visit) {  //后序遍历的递归实现
+        if (!x) return;
+        if (x->lchild) travPost(x->lchild);
+        if (x->rchild) travPost(x->rchild);
+        visit(x->data);
+    }
+
+    
+    template <typename Func>
+    void travPost_I(BinNode<T>* x, Func visit) {  //后序遍历的迭代实现
+        Stack<BinNode<T>*> S;
+        S.push(x);
+        while (!S.empty()) {
+            if (S.top() != x->parent) //栈顶结点不是当前结点之父(必为右兄)
+                goToLeftMostLeaf(S);
+            x = S.pop();  //没有右兄则直接访问中间的父结点
+            visit(x->data);
+        }
+    }
+    
 
     
     template <typename Func>
@@ -113,5 +147,4 @@ public:
 
 
 };
-
 #endif
