@@ -26,6 +26,17 @@ struct VNode {
 struct AGraph {
     int n, e;
     VNode adjlist[MAXV];
+    ~AGraph() {
+        ArcNode *p;
+        for (int i = 0; i < n; i++) {
+            p = adjlist[i].firstarc;
+            while (p) {
+                ArcNode *d = p; 
+                p = p->nextarc;
+                delete d;
+            }
+        }
+    }
 };
 
 #endif
