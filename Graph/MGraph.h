@@ -2,10 +2,15 @@
 #define _MGRAPH_
 #include <cstdio>
 
+#ifndef _VINFO_
+#define _VINFO_
+
 #define MAXV 5
 #define INFI 9999
 
 enum VSTATUS {DIS, UNDIS, VISITED};
+
+#endif 
 
 struct Vertex {
     char data;
