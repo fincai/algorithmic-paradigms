@@ -9,13 +9,13 @@
 #define INFI 9999
 
 enum VSTATUS {DIS, UNDIS, VISITED};
+enum ESTATUS {TREE, BACKWARD, FORWARD, CROSS};
 
 #endif 
 
 struct Vertex {
     char data;
-    VSTATUS status;
-    int dTime, fTime;
+    int parent;
 };
 
 struct MGraph {
