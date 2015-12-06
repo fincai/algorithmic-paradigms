@@ -7,25 +7,30 @@ void BFS(AGraph* G, int s) {
     rear = (rear+1) % MAXV; queue[rear] = s;
     while (front != rear) {
         front = (front+1) % MAXV; int v = queue[front]; // dequeue
-        printf("%d ", G->adjlist[v].data); // visit
+        printf("%c ", G->adjlist[v].data); // visit
         status[v] = VISITED;
-        for (ArcNode* u = G->adjlist[v].firstarc; u; u = u->nextarc) {
-            if (status[u->adjvex] == UNDIS) {
-                status[u->adjvex] = DIS;
-                rear = (rear + 1) % MAXV; queue[rear] = u->adjvex; //enqueue
+        for (ArcNode* e = G->adjlist[v].firstarc; e; e = e->nextarc) {
+            int u = e->adjvex;
+            if (status[u] == UNDIS) {
+                status[u] = DIS;
+                rear = (rear+1) % MAXV; queue[rear] = u; //enqueue
             }
         }
     }
 }
 
 void bfs(AGraph* G, int s) {
-    for (int v = 0; v < G->n; v++)
-        if (status[v] == UNDIS)
-            BFS(G, v);
+    for (int i = 0; i < G->n; i++)
+        status[i] = UNDIS;
+    int v = s;
+    do if (status[v] == UNDIS) BFS(G, v);
+    while (s != (v = (v+1) % (G->n)));
 }
+
 int main() {
     AGraph* g = new AGraph;
     createAGraph(g);
-    BFS(g, 0);
+    bfs(g, 0);
+    printf("\n");
     return 0;
 }
