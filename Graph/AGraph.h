@@ -41,22 +41,24 @@ struct AGraph {
 };
 
 void createAGraph(AGraph* G) {
+    FILE* fp = fopen("input.dat", "r");
     int i, j, k, w;
-    printf("请输入顶点数和边数:");
-    scanf("%d %d", &(G->n), &(G->e));
-    printf("请输入各结点信息:\n");
+    printf("正在输入顶点数和边数...\n");
+    fscanf(fp, "%d %d", &(G->n), &(G->e));
+    printf("正在输入各结点信息...\n");
     for (i = 0; i < G->n; i++)
-        scanf(" %c", &(G->adjlist[i].data));
+        fscanf(fp, " %c", &(G->adjlist[i].data));
        //初始化各表头结点
     for (i = 0; i < G->n; i++)
         G->adjlist[i].firstarc = NULL;
-    printf("请输入i, j, w:\n");
+    printf("正在输入i, j, w...\n");
     for (k = 0; k < G->e; k++) {
-        scanf(" %d %d %d", &i, &j, &w);
+        fscanf(fp, " %d %d %d", &i, &j, &w);
         ArcNode* p = new ArcNode;
         p->adjvex = j; p->weight = w;
         p->nextarc = G->adjlist[i].firstarc;
         G->adjlist[i].firstarc = p;
     }
+    fclose(fp);
 }
 #endif
