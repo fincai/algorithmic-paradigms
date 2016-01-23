@@ -34,7 +34,7 @@ void Dijkstra(MGraph* G, int v) {
 void Ppath(int v, int i) {
     if (path[i] == v) return;
     Ppath(v, path[i]);
-    printf("%d, ", i);
+    printf("%d, ", path[i]);
 }
 
 void printPath(MGraph* G, int v) {
