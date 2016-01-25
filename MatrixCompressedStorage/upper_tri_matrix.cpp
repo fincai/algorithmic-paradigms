@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#define A(i, j) B[( (i) <= (j) ? ((i)*(2*N-(i)+1))/2+j-i : (N*(N+1))/2 )]
+#define A(i, j) B[( (i) <= (j) ? ((i)*(2*N-(i)+1))/2+(j)-(i) : (N*(N+1))/2 )]
 #define N 4
 
 
