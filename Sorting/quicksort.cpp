@@ -1,21 +1,21 @@
 #include "shuffle.h"
-#define N 40000000
-
-int partition(int A[ ], int p, int r) {
-    srand(time(0)); 
-    int x = p + (rand() % (r-p));  //不选A[r]作为轴点, j就不可能返回r
-    //for (int i = p; i <= r; i++)
-     //   printf("%d ", A[i]);
-    //printf("\np = %d r = %d pivot index: %d\n", p, r, x);
-    int pivot = A[x];
+#define N 8000000 
+// 左边元素 <= 轴点 <= 右边元素  轴点必然就位, 有序序列每个元素都是轴点
+// Hoare的partition过程尝试构造轴点
+// 但返回值不一定是轴点的位置
+// 只是围绕轴点把数组划分成一小一大两个集合
+int partition(int A[ ], int p, int r) { 
+    srand(time(0)); swap(A[p], A[p + rand() % (r-p+1)]);
+    int pivot = A[p]; //不选A[r]作为轴点候选, j一定会越过r位置，就不可能返回r
     int i = p-1, j = r+1;
     while (1) {
        do { j--; } while (pivot < A[j]);
        do { i++; } while (A[i] < pivot);
        if (i < j) swap(A[i], A[j]);
-       else return j;     // 证明: 终止时, A[p..j] <= A[j+1..r]总是成立, 即A[j]一定就位
+       else return j;     // 证明: 终止时, A[p..j] <= A[j+1..r]总是成立
     }
 }
+
 
 void quicksort(int A[ ], int p, int r) {
     if (p < r) {
@@ -39,5 +39,7 @@ int main() {
     checkOrder(A, N);
     printf("size of input: %d.\n", N);
     printf("running time: %f secs.\n", (double)(t2 - t1) / CLOCKS_PER_SEC);
+    
+    delete A;
     return 0;    
 }
