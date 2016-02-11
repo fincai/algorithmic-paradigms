@@ -1,5 +1,5 @@
 #include "shuffle.h"
-#define N 8000000 
+#define N 10000000 
 // 左边元素 <= 轴点 <= 右边元素  轴点必然就位, 有序序列每个元素都是轴点
 // Hoare的partition过程尝试构造轴点
 // 但返回值不一定是轴点的位置

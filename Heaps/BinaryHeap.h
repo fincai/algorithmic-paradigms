@@ -26,9 +26,9 @@ class BinaryHeap {
     }
 
     void buildHeap() {
-      for (int i = n/2; i >= 1; i--)  // n = #非叶 + #叶 = 2#非叶 + 1  => #非爷 = n/2
-          heapifyDown(i);
-    }
+      for (int i = n/2; i >= 1; i--)  // n = n0 + n1 + n2  = 2n2 + 1 + n1  完全二叉树 n1 = 0 或 1
+          heapifyDown(i);             // n1 = 0时 #非叶 = (n-1)/2 = n/2  n1 = 1时 n2 = (n - 2)/2 = n/2 - 1
+    }                                 // #非叶 = n/2 - 1 + 1 = n/2
 public:
     BinaryHeap() { n = 0; }
     BinaryHeap(T a[ ], int size) {

@@ -1,6 +1,6 @@
 #include "shuffle.h"
 
-#define N 8000000
+#define N 10000000
 #define l(i) (2*i+1)
 #define r(i) (2*i+2)
 
