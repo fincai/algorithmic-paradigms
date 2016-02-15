@@ -12,14 +12,14 @@ int* buildNext(char* P) {
     return next;
 }
 
-int KMP_match(char* P, char* T) {
-    int *next = buildNext(P);
+int KMP_match(char* P, char* T) {   // O(n + m)
+    int *next = buildNext(P);       // O(m)
     int n = (int)strlen(T), i = 0;
     int m = (int)strlen(P), j = 0;
     while (j < m && i < n)
         if (j < 0 || T[i] == P[j])
         { i++; j++; }
-        else j = next[j];
+        else j = next[j];   // P[0, j)的最大自匹配P[0, t)(既是真前缀又是真后缀)长度, 也是下一个对齐位置
     delete [ ] next;
     return i - j;
 }
